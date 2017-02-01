@@ -9,14 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/throrin19/hapi-boilerplate.git"
+    "url": "git+https://github.com/Bromro/nodeTp.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/throrin19/hapi-boilerplate/issues"
-  },
-  "homepage": "https://github.com/throrin19/hapi-boilerplate#readme",
   "dependencies": {
     "async": "2.1.4",
     "blipp": "2.3.0",
