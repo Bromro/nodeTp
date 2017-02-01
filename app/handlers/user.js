@@ -9,6 +9,8 @@ model.set( {
     "fluid" : value
 } );
 
-model.save( (error, saved)=>{
-    //Je ne sais pas quoi faire.
-} )
+/*model.save().then(saved => {
+
+}).catch(err => {
+
+});*/
