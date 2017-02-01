@@ -1,12 +1,13 @@
-/**
- * Created by bromr on 24/01/2017.
- */
-var Joi = require('joi');
+'use strict';
 
-var schema = Joi.object().keys({
-    username: Joi.string().alphanum().min(3).max(30).required(),
-    password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
-    access_token: [Joi.string(), Joi.number()],
-    birthyear: Joi.number().integer().min(1900).max(2013),
-    email: Joi.string().email()
-}).with('username', 'birthyear').without('password', 'access_token');
+const Joi = require('joi');
+
+var schema = Joi.object({
+    login       : Joi.string().alphanum().required(),
+    password    : Joi.string().alphanum().min(8).required(),
+    email       : Joi.string().email().required(),
+    firstname   : Joi.string(),
+    nir         : Joi.number()
+});
+
+module.exports = schema;

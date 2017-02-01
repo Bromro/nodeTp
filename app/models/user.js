@@ -1,25 +1,23 @@
-'usestrict';
+'use strict';
 
-const fs        = require( 'fs' );
-const path      = require( 'path' );
-const modelsDir = path.join( __dirname, '../schemas/create_users' );
-const models    = fs.readdirSync( models );
+const jsonToMongoose = require('json-mongoose');
+const mongoose = require('k7-mongoose').mongoose();
 
-module.exports.init = server => {
-    returnnewPromise( ( resolve, reject ) => {
-        server.register({
-            register: require( 'k7' ),
-            options: {
-                connectionString: 'mongodb://localhost:8080/hapi',
-                adapter: require( 'k7-mongoose' ),
-                models: [path.join( routeDir, '**/*.js' )],
-            }
-        }, err => {
-            if ( err ) {
-                reject( err );
-                return;
-            }
-            resolve();
-        });
-    });
-};
+module.exports = jsonToMongoose({
+    mongoose: mongoose,
+    collection: 'user',
+    schema: require('../schemas/user'),
+    autoinc: {
+        field: '_id'
+    },
+    schemaUpdate: (schema) => {
+        schema.login.unique = true;
+        schema.email.unique = true;
+        return schema;
+    },
+    transform: (doc, ret, options) => {
+        delete ret.password;
+        return ret;
+    },
+    options: {}
+});
