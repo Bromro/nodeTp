@@ -2,7 +2,7 @@
  * Created by bromr on 01/02/2017.
  */
 'use strict';
-const joi = require('joi');
+const Joi = require('joi');
 const handler = require('../handlers/user');
 const userSchema = require('../schemas/user');
 
@@ -18,7 +18,48 @@ exports.register = (server, options, next) => {
                 validate: {
                     payload: userSchema
                 },
-                handler: handler.root
+                handler: handler.add
+            }
+        },
+        {
+            method: 'GET',
+            path: '/users',
+            config: {
+                description: 'la route qui montre les utilisateurs',
+                notes: 'toutes les routes mènent à Rome',
+                tags: ['api'],
+                handler: handler.getUsers
+            }
+        },
+        {
+            method: 'DELETE',
+            path: '/user/{id}',
+            config: {
+                description: 'la route qui supprime un utilisateur',
+                notes: 'la route de qui supprime',
+                tags: ['api'],
+                validate: {
+                    params: {
+                        id: Joi.string()
+                    }
+                },
+                handler: handler.delUser
+            }
+        },
+        {
+            method: 'POST',
+            path: '/user/{id}',
+            config: {
+                description: 'la route pour change un utilisateur',
+                notes: 'le changement cest la route',
+                tags: ['api'],
+                validate: {
+                    payload: userSchema,
+                    params:{
+                        id: Joi.string()
+                    }
+                },
+                handler: handler.updateUser
             }
         }
     ]);
