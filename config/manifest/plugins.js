@@ -3,6 +3,7 @@
 const async     = require('async');
 const envConfig = require('../environments/all');
 
+
 module.exports.init = server => {
     return new Promise((resolve, reject) => {
         async.series({
@@ -38,6 +39,11 @@ module.exports.init = server => {
             vision(done) {
                 server.register({
                     register: require('vision')
+                }, done);
+            },
+            mail(done) {
+                server.register({
+                    register: require( '../../app/plugins/mail' )
                 }, done);
             }
         }, err => {

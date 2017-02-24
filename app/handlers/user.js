@@ -11,6 +11,8 @@ module.exports.add = ( request, response ) => {
             return;
         }
 
+        request.server.alertNewUser(user);
+
         response( null,  {
             result : user
         } );
@@ -53,4 +55,5 @@ module.exports.updateUser = ( request, response ) => {
             if( err ) return handleError( err );
         }
     )
+    request.server.alertNewUser(user);
 };
